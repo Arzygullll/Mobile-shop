@@ -6,6 +6,9 @@ const btnAdd = document.querySelector("#btnAdd");
 const collapseThree = document.querySelector("#collapseThree");
 const section2 = document.querySelector(".section2");
 const inpSearch = document.querySelector("#inpSearch");
+const prevBtn = document.querySelector("#prevBtn");
+const nextBtn = document.querySelector("#nextBtn");
+
 let searchValue = "";
 let countPage = 1;
 let currentPage = 1;
@@ -61,13 +64,39 @@ async function readPhones() {
     `;
   });
   await pageFunc();
+  updatePaginationButtons();
 }
+readPhones();
+
+async function pageFunc() {
+  const res = await fetch(`${API}?q=${searchValue}`);
+  const data = await res.json();
+  countPage = Math.ceil(data.length / 4);
+}
+
+function updatePaginationButtons() {
+  prevBtn.parentElement.classList.toggle("disabled", currentPage <= 1);
+  nextBtn.parentElement.classList.toggle("disabled", currentPage >= countPage);
+}
+
+prevBtn.addEventListener("click", async () => {
+  if (currentPage > 1) {
+    currentPage--;
+    await readPhones();
+  }
+});
+
+nextBtn.addEventListener("click", async () => {
+  if (currentPage < countPage) {
+    currentPage++;
+    await readPhones();
+  }
+});
 
 // !-----------------------------------DELETE----------------------------------
 document.addEventListener("click", async (e) => {
-  const del_class = [...e.target.classList];
-  let id = e.target.id;
-  if (del_class.includes("btnDelete")) {
+  if (e.target.classList.contains("btnDelete")) {
+    const id = e.target.id;
     await fetch(`${API}/${id}`, {
       method: "DELETE",
       headers: {
@@ -85,15 +114,14 @@ const inpEditPrice = document.querySelector("#inpEditPrice");
 const btnEditSave = document.querySelector("#btnEditSave");
 
 document.addEventListener("click", async (e) => {
-  let edit_class = [...e.target.classList];
-  let id = e.target.id;
-  if (edit_class.includes("btnEdit")) {
+  if (e.target.classList.contains("btnEdit")) {
+    const id = e.target.id;
     const res = await fetch(`${API}/${id}`);
     const data = await res.json();
     inpEditImg.value = data.phoneImg;
     inpEditName.value = data.phoneName;
     inpEditPrice.value = data.phonePrice;
-    btnEditSave.setAttribute("data-id", data.id); // Use data-id instead of id to avoid conflicts
+    btnEditSave.setAttribute("data-id", data.id);
   }
 });
 
@@ -106,14 +134,14 @@ btnEditSave.addEventListener("click", async () => {
     alert("Введите данные!");
     return;
   }
+  const id = btnEditSave.getAttribute("data-id");
   let editedPhone = {
     phoneImg: inpEditImg.value,
     phoneName: inpEditName.value,
     phonePrice: inpEditPrice.value,
   };
-  const id = btnEditSave.getAttribute("data-id"); // Get the id from data-id
   await editPhone(editedPhone, id);
-  await readPhones(); // Обновление данных после редактирования телефона
+  await readPhones();
 });
 
 async function editPhone(phone, id) {
@@ -129,42 +157,16 @@ async function editPhone(phone, id) {
 // ! ---------------------------------SEARCH----------------------------------------
 inpSearch.addEventListener("input", async (e) => {
   searchValue = e.target.value;
+  currentPage = 1; // Сброс на первую страницу при новом поиске
   await readPhones();
 });
 
 // ! -------------------------------PAGINATION--------------------------------------
-async function pageFunc() {
-  const res = await fetch(API);
-  const data = await res.json();
-  countPage = Math.ceil(data.length / 4); // Предполагаем, что 4 элемента на странице
-  updatePaginationButtons();
-}
-
-function updatePaginationButtons() {
-  document
-    .querySelector("#prevBtn")
-    .classList.toggle("disabled", currentPage <= 1);
-  document
-    .querySelector("#nextBtn")
-    .classList.toggle("disabled", currentPage >= countPage);
-}
-
-document.querySelector("#prevBtn").addEventListener("click", async () => {
-  if (currentPage <= 1) return;
-  currentPage--;
-  await readPhones();
-});
-
-document.querySelector("#nextBtn").addEventListener("click", async () => {
-  if (currentPage >= countPage) return;
-  currentPage++;
-  await readPhones();
-});
+document.addEventListener("DOMContentLoaded", readPhones);
 
 function showDetail(img, name, price) {
   document.querySelector("#detailImg").src = img;
   document.querySelector("#detailName").innerText = name;
   document.querySelector("#detailPrice").innerText = price;
 }
-
-document.addEventListener("DOMContentLoaded", readPhones); // Инициализация чтения телефонов при загрузке страницы
+// document.addEventListener("DOMContentLoaded", readPhones);

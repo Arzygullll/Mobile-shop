@@ -12,7 +12,11 @@ const nextBtn = document.querySelector("#nextBtn");
 let searchValue = "";
 let countPage = 1;
 let currentPage = 1;
+<<<<<<< HEAD
 readPhones();
+=======
+
+>>>>>>> fb46ac6aa8b38e98c8d1b55d61675092e618b716
 // ! -------------------------CREATE------------------------------
 btnAdd.addEventListener("click", async () => {
   if (!inpImg.value.trim() || !inpName.value.trim() || !inpPrice.value.trim()) {
@@ -51,6 +55,7 @@ async function readPhones() {
   section2.innerHTML = "";
   data.forEach((elem) => {
     section2.innerHTML += `
+<<<<<<< HEAD
         <div class="card m-4 cardBook" style="width: 15rem;">
           <img style="height:300px" src="${elem.phoneImg}" alt="${elem.phoneName}">
           <div class="card-body">
@@ -62,6 +67,19 @@ async function readPhones() {
           </div>
         </div>
       `;
+=======
+      <div class="card m-4 cardBook" style="width: 15rem;">
+        <img style="height:300px" src="${elem.phoneImg}" alt="${elem.phoneName}">
+        <div class="card-body">
+          <h5 class="card-title">${elem.phoneName}</h5>
+          <span>${elem.phonePrice}</span>
+          <button type="button" class="btn btn-danger btnDelete" id="${elem.id}">Удалить</button>
+          <button data-bs-toggle="modal" data-bs-target="#exampleModal" id="${elem.id}" type="button" class="btn btn-info btnEdit">Редактировать</button>
+          <button type="button" class="btn btn-warning" id="${elem.id}" onclick="showDetail('${elem.phoneImg}', '${elem.phoneName}', '${elem.phonePrice}')">Детальный обзор</button>
+        </div>
+      </div>
+    `;
+>>>>>>> fb46ac6aa8b38e98c8d1b55d61675092e618b716
   });
   await pageFunc();
   updatePaginationButtons();
@@ -155,6 +173,7 @@ async function editPhone(phone, id) {
     body: JSON.stringify(phone),
   });
 }
+<<<<<<< HEAD
 // ! INFO
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("btninfo")) {
@@ -176,6 +195,8 @@ document.addEventListener("click", (e) => {
       });
   }
 });
+=======
+>>>>>>> fb46ac6aa8b38e98c8d1b55d61675092e618b716
 
 // ! ---------------------------------SEARCH----------------------------------------
 const inpSearch = document.querySelector("input[type='search']");

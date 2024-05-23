@@ -27,6 +27,21 @@
     {
       "phoneImg": "https://www.istore.kg/media/products/iphone-14-finish-select-202209-6-7inch-starlight_GEiFkpY.webp",
       "phoneName": "iPhone 14 Plus",
+<<<<<<< HEAD
+=======
+      "phonePrice": "70 310с",
+      "id": 5
+    },
+    {
+      "phoneImg": "https://www.istore.kg/media/products/iphone-14-finish-select-202209-6-7inch-starlight_GEiFkpY.webp",
+      "phoneName": "iPhone 14 Plus",
+      "phonePrice": "70 310 с",
+      "id": 6
+    },
+    {
+      "phoneImg": "https://www.istore.kg/media/products/iphone-14-finish-select-202209-6-7inch-starlight_GEiFkpY.webp",
+      "phoneName": "iPhone 14 Plus",
+>>>>>>> fb46ac6aa8b38e98c8d1b55d61675092e618b716
       "phonePrice": "70 310 сом",
       "id": 7
     },

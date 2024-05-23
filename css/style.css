@@ -1,15 +1,21 @@
+<<<<<<< HEAD
 /* * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 } */
+=======
+>>>>>>> fb46ac6aa8b38e98c8d1b55d61675092e618b716
 .section2 {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   align-content: center;
 }
+<<<<<<< HEAD
 .pagination {
   display: flex;
   justify-content: center;
 }
+=======
+>>>>>>> fb46ac6aa8b38e98c8d1b55d61675092e618b716

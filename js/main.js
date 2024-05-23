@@ -5,7 +5,7 @@ const inpPrice = document.querySelector("#inpPrice");
 const btnAdd = document.querySelector("#btnAdd");
 const collapseThree = document.querySelector("#collapseThree");
 const section2 = document.querySelector(".section2");
-const inpSearch = document.querySelector("#inpSearch");
+// const inpSearch = document.querySelector("#inpSearch");
 const prevBtn = document.querySelector("#prevBtn");
 const nextBtn = document.querySelector("#nextBtn");
 
@@ -79,14 +79,16 @@ function updatePaginationButtons() {
   nextBtn.parentElement.classList.toggle("disabled", currentPage >= countPage);
 }
 
-prevBtn.addEventListener("click", async () => {
+prevBtn.addEventListener("click", async (event) => {
+  event.preventDefault(); // Предотвращает прокрутку вверх
   if (currentPage > 1) {
     currentPage--;
     await readPhones();
   }
 });
 
-nextBtn.addEventListener("click", async () => {
+nextBtn.addEventListener("click", async (event) => {
+  event.preventDefault(); // Предотвращает прокрутку вверх
   if (currentPage < countPage) {
     currentPage++;
     await readPhones();
@@ -155,9 +157,17 @@ async function editPhone(phone, id) {
 }
 
 // ! ---------------------------------SEARCH----------------------------------------
+const inpSearch = document.querySelector("input[type='search']");
+btnSearch.addEventListener("click", async (e) => {
+  e.preventDefault(); // Предотвращаем стандартное поведение формы
+  searchValue = inpSearch.value.trim();
+  currentPage = 1;
+  await readPhones();
+});
+
 inpSearch.addEventListener("input", async (e) => {
-  searchValue = e.target.value;
-  currentPage = 1; // Сброс на первую страницу при новом поиске
+  searchValue = e.target.value.trim();
+  currentPage = 1;
   await readPhones();
 });
 
@@ -169,4 +179,3 @@ function showDetail(img, name, price) {
   document.querySelector("#detailName").innerText = name;
   document.querySelector("#detailPrice").innerText = price;
 }
-// document.addEventListener("DOMContentLoaded", readPhones);

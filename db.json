@@ -1,0 +1,58 @@
+{
+  "phones": [
+    {
+      "phoneImg": "https://www.istore.kg/media/products/iphone-15-pro-finish-select-202309-6-7inch-naturaltitanium.webp",
+      "phoneName": "iPhone 15 Pro Max",
+      "phonePrice": "109 470с",
+      "id": 1
+    },
+    {
+      "phoneImg": "https://www.istore.kg/media/products/iphone-15-pro-finish-select-202309-6-1inch-bluetitanium.webp",
+      "phoneName": "iPhone 15 Pro",
+      "phonePrice": "90 780сом",
+      "id": 2
+    },
+    {
+      "phoneImg": "https://www.istore.kg/media/products/iphone-15-finish-select-202309-6-7inch-green_8itFTtq.webp",
+      "phoneName": "iPhone 15 Plus",
+      "phonePrice": "92 560с",
+      "id": 3
+    },
+    {
+      "phoneImg": "https://www.istore.kg/media/products/iphone-15-finish-select-202309-6-1inch-pink_C7Ecm2p.webp",
+      "phoneName": "iPhone 15",
+      "phonePrice": "68 530с",
+      "id": 4
+    },
+    {
+      "phoneImg": "https://www.istore.kg/media/products/iphone-14-finish-select-202209-6-7inch-starlight_GEiFkpY.webp",
+      "phoneName": "iPhone 14 Plus",
+      "phonePrice": "70 310 сом",
+      "id": 7
+    },
+    {
+      "phoneImg": "https://www.istore.kg/media/products/iphone-14-finish-select-202209-6-1inch-purple_kQmwgCU.webp",
+      "phoneName": "iPhone 14",
+      "phonePrice": "60 520 сом",
+      "id": 8
+    },
+    {
+      "phoneImg": "https://www.istore.kg/media/products/iphone-13-midnight-select-2021.webp",
+      "phoneName": "iPhone 13",
+      "phonePrice": "52 510 сом",
+      "id": 9
+    },
+    {
+      "phoneImg": "https://www.istore.kg/media/products/12-Black_Rfid3OW.webp",
+      "phoneName": "iPhone 12",
+      "phonePrice": "47 170 сом",
+      "id": 10
+    },
+    {
+      "phoneImg": "https://www.istore.kg/media/products/11-white_6A7orer.webp",
+      "phoneName": "iPhone 11",
+      "phonePrice": "40 050 сом",
+      "id": 11
+    }
+  ]
+}

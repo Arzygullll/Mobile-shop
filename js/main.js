@@ -1,4 +1,5 @@
 const API = "http://localhost:8000/phones";
+const API2 = "http://localhost:8001/phones";
 const inpImg = document.querySelector("#inpImg");
 const inpName = document.querySelector("#inpName");
 const inpPrice = document.querySelector("#inpPrice");
@@ -155,6 +156,26 @@ async function editPhone(phone, id) {
     body: JSON.stringify(phone),
   });
 }
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("btninfo")) {
+    const id = e.target.id;
+    fetch(`${API}/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        document.querySelector("#detailImg").src = data.phoneImg;
+        document.querySelector("#detailName").innerText = data.phoneName;
+        document.querySelector("#detailPrice").innerText = data.phonePrice;
+
+        const detailModal = new bootstrap.Modal(
+          document.getElementById("detailModal"),
+          {
+            keyboard: false,
+          }
+        );
+        detailModal.show();
+      });
+  }
+});
 
 // ! ---------------------------------SEARCH----------------------------------------
 const inpSearch = document.querySelector("input[type='search']");
@@ -179,3 +200,143 @@ function showDetail(img, name, price) {
   document.querySelector("#detailName").innerText = name;
   document.querySelector("#detailPrice").innerText = price;
 }
+//
+
+// !-------SECTION3-----------------
+// !-----------------------------------SECTION-3 START-----------------------------------
+const section3 = document.querySelector(".section3");
+
+// Функция для чтения данных о Samsung-телефонах
+async function readSamsungPhones() {
+  const res = await fetch(
+    `${API2}?q=${searchValue}&_page=${currentPage}&_limit=4`
+  );
+  const data = await res.json();
+  return data;
+}
+
+// Функция для отображения данных о Samsung-телефонах на странице
+async function displaySamsungPhones() {
+  const samsungData = await readSamsungPhones();
+
+  // Очищаем содержимое section3 перед добавлением новых данных
+  section3.innerHTML = "";
+
+  // Вставляем данные о Samsung-телефонах в раздел section3
+  samsungData.forEach((elem) => {
+    section3.innerHTML += `
+      <div class="card m-4 cardBook" style="width: 15rem;">
+        <img style="height:300px" src="${elem.phoneImg}" alt="${elem.phoneName}">
+        <div class="card-body">
+          <h5 class="card-title">${elem.phoneName}</h5>
+          <span>${elem.phonePrice}</span>
+          <button type="button" class="btn btn-danger btnDelete" id="${elem.id}">Удалить</button>
+          <button data-bs-toggle="modal" data-bs-target="#exampleModal" id="${elem.id}" type="button" class="btn btn-info btnEdit">Редактировать</button>
+          <button type="button" class="btn btn-warning" id="${elem.id}" onclick="showDetail('${elem.phoneImg}', '${elem.phoneName}', '${elem.phonePrice}')">Детальный обзор</button>
+        </div>
+      </div>
+    `;
+  });
+}
+
+// Вызываем функцию для отображения данных о Samsung-телефонах при загрузке страницы
+displaySamsungPhones();
+
+// Обработчик события для кнопки добавления нового телефона Samsung
+const btnAddSamsung = document.querySelector("#btnAdd2");
+
+btnAddSamsung.addEventListener("click", async () => {
+  const inpImg2 = document.querySelector("#inpImg2");
+  const inpName2 = document.querySelector("#inpName2");
+  const inpPrice2 = document.querySelector("#inpPrice2");
+
+  if (
+    !inpImg2.value.trim() ||
+    !inpName2.value.trim() ||
+    !inpPrice2.value.trim()
+  ) {
+    alert("Введите данные!");
+    return;
+  }
+
+  let newPhone2 = {
+    phoneImg: inpImg2.value,
+    phoneName: inpName2.value,
+    phonePrice: inpPrice2.value,
+  };
+
+  await createSamsungPhone(newPhone2);
+  inpImg2.value = "";
+  inpName2.value = "";
+  inpPrice2.value = "";
+
+  // Обновляем отображение данных о Samsung-телефонах
+  await displaySamsungPhones();
+});
+
+// Функция для создания нового Samsung-телефона
+async function createSamsungPhone(phones) {
+  await fetch(API2, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify(phones),
+  });
+}
+
+// Обработчик события для кнопки редактирования телефона Samsung
+const inpEditImg2 = document.querySelector("#inpEditImg2");
+const inpEditName2 = document.querySelector("#inpEditName2");
+const inpEditPrice2 = document.querySelector("#inpEditPrice2");
+const btnEditSave2 = document.querySelector("#btnEditSave2");
+
+document.addEventListener("click", async (e) => {
+  if (e.target.classList.contains("btnEdit")) {
+    const id = e.target.id;
+    const res = await fetch(`${API2}/${id}`);
+    const data = await res.json();
+    inpEditImg2.value = data.phoneImg;
+    inpEditName2.value = data.phoneName;
+    inpEditPrice2.value = data.phonePrice;
+    btnEditSave2.setAttribute("data-id", data.id);
+  }
+});
+
+btnEditSave2.addEventListener("click", async () => {
+  if (
+    !inpEditImg2.value.trim() ||
+    !inpEditName2.value.trim() ||
+    !inpEditPrice2.value.trim()
+  ) {
+    alert("Введите данные!");
+    return;
+  }
+  const id = btnEditSave2.getAttribute("data-id");
+  let editedPhone2 = {
+    phoneImg: inpEditImg2.value,
+    phoneName: inpEditName2.value,
+    phonePrice: inpEditPrice2.value,
+  };
+  await editPhone2(editedPhone2, id);
+  await displaySamsungPhones();
+});
+
+// Функция для редактирования телефона Samsung
+async function editPhone2(phones, id) {
+  await fetch(`${API2}/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify(phones),
+  });
+}
+
+// Функция для отображения детальной информации о телефоне Samsung
+function showDetail(img, name, price) {
+  document.querySelector("#detailImg2").src = img;
+  document.querySelector("#detailName2").innerText = name;
+  document.querySelector("#detailPrice2").innerText = price;
+}
+// !-----------------------------------SECTION-3 FINISH-----------------------------------

@@ -1,0 +1,28 @@
+{
+  "phones": [
+    {
+      "phoneImg": "https://example.com/image1.jpg",
+      "phoneName": "Samsung Galaxy S21",
+      "phonePrice": "$999",
+      "id": 1
+    },
+    {
+      "phoneImg": "https://example.com/image2.jpg",
+      "phoneName": "Samsung Galaxy Note 20",
+      "phonePrice": "$799",
+      "id": 2
+    },
+    {
+      "phoneImg": "11",
+      "phoneName": "11",
+      "phonePrice": "11",
+      "id": 3
+    },
+    {
+      "phoneImg": "222",
+      "phoneName": "222",
+      "phonePrice": "222",
+      "id": 4
+    }
+  ]
+}

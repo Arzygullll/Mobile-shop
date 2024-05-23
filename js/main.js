@@ -1,5 +1,6 @@
 const API = "http://localhost:8000/phones";
 const API2 = "http://localhost:8001/phones";
+
 const inpImg = document.querySelector("#inpImg");
 const inpName = document.querySelector("#inpName");
 const inpPrice = document.querySelector("#inpPrice");
@@ -59,7 +60,7 @@ async function readPhones() {
           <span>${elem.phonePrice}</span>
           <button type="button" class="btn btn-danger btnDelete" id="${elem.id}">Удалить</button>
           <button data-bs-toggle="modal" data-bs-target="#exampleModal" id="${elem.id}" type="button" class="btn btn-info btnEdit">Редактировать</button>
-          <button type="button" class="btn btn-warning" id="${elem.id}" onclick="showDetail('${elem.phoneImg}', '${elem.phoneName}', '${elem.phonePrice}')">Детальный обзор</button>
+          <button type="button" class="btn btn-warning btninfo" id="${elem.id}">Детальный обзор</button>
         </div>
       </div>
     `;
@@ -156,6 +157,8 @@ async function editPhone(phone, id) {
     body: JSON.stringify(phone),
   });
 }
+
+// ! INFO
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("btninfo")) {
     const id = e.target.id;
@@ -204,18 +207,21 @@ function showDetail(img, name, price) {
 
 // !-------SECTION3-----------------
 // !-----------------------------------SECTION-3 START-----------------------------------
+// !-----------------------------------SECTION-3 START-----------------------------------
 const section3 = document.querySelector(".section3");
+let currentPageSamsung = 1;
+let searchValueSamsung = ""; // Добавьте это, если есть возможность поиска
 
-// Функция для чтения данных о Samsung-телефонах
+// READ - Функция для чтения данных о Samsung-телефонах
 async function readSamsungPhones() {
   const res = await fetch(
-    `${API2}?q=${searchValue}&_page=${currentPage}&_limit=4`
+    `${API2}?q=${searchValueSamsung}&_page=${currentPageSamsung}&_limit=4`
   );
   const data = await res.json();
   return data;
 }
 
-// Функция для отображения данных о Samsung-телефонах на странице
+// READ - Функция для отображения данных о Samsung-телефонах на странице
 async function displaySamsungPhones() {
   const samsungData = await readSamsungPhones();
 
@@ -231,18 +237,40 @@ async function displaySamsungPhones() {
           <h5 class="card-title">${elem.phoneName}</h5>
           <span>${elem.phonePrice}</span>
           <button type="button" class="btn btn-danger btnDelete" id="${elem.id}">Удалить</button>
-          <button data-bs-toggle="modal" data-bs-target="#exampleModal" id="${elem.id}" type="button" class="btn btn-info btnEdit">Редактировать</button>
+          <button data-bs-toggle="modal" data-bs-target="#exampleModal2" id="edit-${elem.id}" type="button" class="btn btn-info btnEdit">Редактировать</button>
           <button type="button" class="btn btn-warning" id="${elem.id}" onclick="showDetail('${elem.phoneImg}', '${elem.phoneName}', '${elem.phonePrice}')">Детальный обзор</button>
         </div>
       </div>
     `;
+  });
+
+  // Добавляем обработчики событий для кнопок удаления
+  document.querySelectorAll(".btnDelete").forEach((button) => {
+    button.addEventListener("click", async (e) => {
+      const id = e.target.id;
+      await deletePhone(id); // DELETE
+      await displaySamsungPhones(); // Refresh after delete
+    });
+  });
+
+  // Добавляем обработчики событий для кнопок редактирования
+  document.querySelectorAll(".btnEdit").forEach((button) => {
+    button.addEventListener("click", async (e) => {
+      const id = e.target.id.split("-")[1]; // Получаем id из id кнопки
+      const res = await fetch(`${API2}/${id}`);
+      const data = await res.json();
+      document.querySelector("#inpEditImg2").value = data.phoneImg;
+      document.querySelector("#inpEditName2").value = data.phoneName;
+      document.querySelector("#inpEditPrice2").value = data.phonePrice;
+      document.querySelector("#btnEditSave2").setAttribute("data-id", data.id);
+    });
   });
 }
 
 // Вызываем функцию для отображения данных о Samsung-телефонах при загрузке страницы
 displaySamsungPhones();
 
-// Обработчик события для кнопки добавления нового телефона Samsung
+// CREATE - Обработчик события для кнопки добавления нового телефона Samsung
 const btnAddSamsung = document.querySelector("#btnAdd2");
 
 btnAddSamsung.addEventListener("click", async () => {
@@ -265,7 +293,7 @@ btnAddSamsung.addEventListener("click", async () => {
     phonePrice: inpPrice2.value,
   };
 
-  await createSamsungPhone(newPhone2);
+  await createSamsungPhone(newPhone2); // CREATE
   inpImg2.value = "";
   inpName2.value = "";
   inpPrice2.value = "";
@@ -274,7 +302,7 @@ btnAddSamsung.addEventListener("click", async () => {
   await displaySamsungPhones();
 });
 
-// Функция для создания нового Samsung-телефона
+// CREATE - Функция для создания нового Samsung-телефона
 async function createSamsungPhone(phones) {
   await fetch(API2, {
     method: "POST",
@@ -285,25 +313,32 @@ async function createSamsungPhone(phones) {
   });
 }
 
-// Обработчик события для кнопки редактирования телефона Samsung
-const inpEditImg2 = document.querySelector("#inpEditImg2");
-const inpEditName2 = document.querySelector("#inpEditName2");
-const inpEditPrice2 = document.querySelector("#inpEditPrice2");
+// EDIT - Функция для редактирования телефона Samsung
+async function editPhone2(phones, id) {
+  await fetch(`${API2}/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify(phones),
+  });
+}
+
+// DELETE - Функция для удаления телефона Samsung
+async function deletePhone(id) {
+  await fetch(`${API2}/${id}`, {
+    method: "DELETE",
+  });
+}
+
+// Обработчик события для кнопки сохранения изменений
 const btnEditSave2 = document.querySelector("#btnEditSave2");
 
-document.addEventListener("click", async (e) => {
-  if (e.target.classList.contains("btnEdit")) {
-    const id = e.target.id;
-    const res = await fetch(`${API2}/${id}`);
-    const data = await res.json();
-    inpEditImg2.value = data.phoneImg;
-    inpEditName2.value = data.phoneName;
-    inpEditPrice2.value = data.phonePrice;
-    btnEditSave2.setAttribute("data-id", data.id);
-  }
-});
-
 btnEditSave2.addEventListener("click", async () => {
+  const inpEditImg2 = document.querySelector("#inpEditImg2");
+  const inpEditName2 = document.querySelector("#inpEditName2");
+  const inpEditPrice2 = document.querySelector("#inpEditPrice2");
+
   if (
     !inpEditImg2.value.trim() ||
     !inpEditName2.value.trim() ||
@@ -318,20 +353,9 @@ btnEditSave2.addEventListener("click", async () => {
     phoneName: inpEditName2.value,
     phonePrice: inpEditPrice2.value,
   };
-  await editPhone2(editedPhone2, id);
+  await editPhone2(editedPhone2, id); // EDIT
   await displaySamsungPhones();
 });
-
-// Функция для редактирования телефона Samsung
-async function editPhone2(phones, id) {
-  await fetch(`${API2}/${id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-    },
-    body: JSON.stringify(phones),
-  });
-}
 
 // Функция для отображения детальной информации о телефоне Samsung
 function showDetail(img, name, price) {
@@ -339,4 +363,22 @@ function showDetail(img, name, price) {
   document.querySelector("#detailName2").innerText = name;
   document.querySelector("#detailPrice2").innerText = price;
 }
+
+// PAGINATION - Пагинация
+const prevBtnSamsung = document.querySelector("#prevBtn2");
+const nextBtnSamsung = document.querySelector("#nextBtn2");
+
+prevBtnSamsung.addEventListener("click", async (e) => {
+  e.preventDefault(); // Предотвращаем перезагрузку страницы
+  if (currentPageSamsung > 1) {
+    currentPageSamsung--;
+    await displaySamsungPhones();
+  }
+});
+
+nextBtnSamsung.addEventListener("click", async (e) => {
+  e.preventDefault(); // Предотвращаем перезагрузку страницы
+  currentPageSamsung++;
+  await displaySamsungPhones();
+});
 // !-----------------------------------SECTION-3 FINISH-----------------------------------

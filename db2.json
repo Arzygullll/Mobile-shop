@@ -1,28 +1,70 @@
 {
   "phones": [
     {
-      "phoneImg": "https://example.com/image1.jpg",
-      "phoneName": "Samsung Galaxy S21",
-      "phonePrice": "$999",
+      "phoneImg": "https://samsungstore.kg/files/media/13/13666.jpg",
+      "phoneName": "Galaxy Z Fold 5 5G",
+      "phonePrice": "125 990с",
       "id": 1
     },
     {
-      "phoneImg": "https://example.com/image2.jpg",
-      "phoneName": "Samsung Galaxy Note 20",
-      "phonePrice": "$799",
+      "phoneImg": "https://samsungstore.kg/files/media/14/14442.png",
+      "phoneName": "Galaxy S24 Ultra",
+      "phonePrice": "109 990с",
       "id": 2
     },
     {
-      "phoneImg": "11",
-      "phoneName": "11",
-      "phonePrice": "11",
+      "phoneImg": "https://samsungstore.kg/files/media/14/14422.png",
+      "phoneName": "Galaxy S24 Ultra 256GB",
+      "phonePrice": "98 990c",
       "id": 3
     },
     {
-      "phoneImg": "222",
-      "phoneName": "222",
-      "phonePrice": "222",
+      "phoneImg": "https://samsungstore.kg/files/media/12/12323.png",
+      "phoneName": "Galaxy S22 Ultra",
+      "phonePrice": "92 990c",
       "id": 4
+    },
+    {
+      "phoneImg": "https://samsungstore.kg/files/media/14/14392.png",
+      "phoneName": "Galaxy S24",
+      "phonePrice": "88 990c",
+      "id": 5
+    },
+    {
+      "phoneImg": "https://samsungstore.kg/files/media/10/10885.jpg",
+      "phoneName": "Galaxy S22 Ultra",
+      "phonePrice": "80 990c",
+      "id": 6
+    },
+    {
+      "phoneImg": "https://samsungstore.kg/files/media/12/12444.jpg",
+      "phoneName": "Galaxy S23",
+      "phonePrice": "61 390c",
+      "id": 7
+    },
+    {
+      "phoneImg": "https://samsungstore.kg/files/media/14/14068.jpg",
+      "phoneName": "Galaxy S23FE",
+      "phonePrice": "44 990c",
+      "id": 8
+    },
+    {
+      "phoneImg": "https://samsungstore.kg/files/media/10/10946.png",
+      "phoneName": "Galaxy S22+",
+      "phonePrice": "64 390c",
+      "id": 9
+    },
+    {
+      "phoneImg": "https://samsungstore.kg/files/media/14/14295.png",
+      "phoneName": "Galaxy S24 128GB",
+      "phonePrice": "64 490c",
+      "id": 10
+    },
+    {
+      "phoneImg": "https://samsungstore.kg/files/media/13/13321.jpg",
+      "phoneName": "Galaxy A34",
+      "phonePrice": "32 600c",
+      "id": 11
     }
   ]
 }

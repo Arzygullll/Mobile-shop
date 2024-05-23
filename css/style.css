@@ -10,3 +10,17 @@
   flex-wrap: wrap;
   align-content: center;
 }
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+.nav-item:hover .nav-link {
+  color: #fff;
+  filter: brightness(1.2);
+  transition: color 0.3s ease, filter 0.3s ease;
+}
+.dropdown-item:hover {
+  color: #fff;
+  filter: brightness(1.2);
+  transition: color 0.3s ease, filter 0.3s ease;
+}

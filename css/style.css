@@ -35,9 +35,12 @@
   line-height: 0px;
 }
 .card-body .btn {
-  background-color: #343a40; /* Цвет фона */
-  color: #ffffff; /* Цвет текста */
-  border: none; /* Убираем границу */
-  padding: 10px 20px; /* Поля внутри кнопки */
-  cursor: pointer; /* Курсор при наведении */
+  background-color: #343a40;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+html {
+  scroll-behavior: smooth;
 }

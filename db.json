@@ -1,0 +1,10 @@
+{
+  "phones": [
+    {
+      "phoneImg": "https://www.istore.kg/media/products/iphone-15-pro-finish-select-202309-6-7inch-naturaltitanium.webp",
+      "phoneName": "Iphone",
+      "phonePrice": "$1000",
+      "id": 1
+    }
+  ]
+}

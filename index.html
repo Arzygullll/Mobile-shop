@@ -184,106 +184,109 @@
     </section>
     <!-- !SECTION-1 FINISH-->
     <!-- !SECTION-2 START -->
-    <section class="section2">
-      <!--! Modal -->
-      <div
-        class="modal fade"
-        id="editModal"
-        tabindex="-1"
-        aria-labelledby="editModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="editModalLabel">
-                Редактировать телефон
-              </h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <input
-                class="form-control"
-                type="text"
-                id="inpEditImg"
-                placeholder="Изображение"
-              />
-              <input
-                class="form-control"
-                type="text"
-                id="inpEditName"
-                placeholder="Модель телефона"
-              />
-              <input
-                class="form-control"
-                type="text"
-                id="inpEditPrice"
-                placeholder="Цена"
-              />
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Закрыть
-              </button>
-              <button id="btnEditSave" type="button" class="btn btn-primary">
-                Сохранить изменения
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!--! Detail Modal -->
-      <div
-        class="modal fade"
-        id="detailModal"
-        tabindex="-1"
-        aria-labelledby="detailModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="detailModalLabel">Детальный обзор</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <img
-                id="detailImg"
-                src=""
-                alt="Phone Image"
-                style="width: 100%; height: auto"
-              />
-              <h5 id="detailName"></h5>
-              <p id="detailPrice"></p>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Закрыть
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <section class="section2"></section>
     <!-- !SECTION-2 FINISH -->
+    <!-- EDIT MODAL START -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      aria-hidden="true"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Редактировать телефон
+            </h5>
+            <button
+              type="button"
+              data-bs-dismiss="modal"
+              class="btn-close"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <input
+              class="form-control"
+              type="text"
+              id="inpEditImg"
+              placeholder="Изображение"
+            />
+            <input
+              class="form-control"
+              type="text"
+              id="inpEditName"
+              placeholder="Модель телефона"
+            />
+            <input
+              class="form-control"
+              type="text"
+              id="inpEditPrice"
+              placeholder="Цена"
+            />
+          </div>
+          <div class="modal-footer">
+            <button id="btnEditSave" class="btn btn-primary" type="button">
+              Сохранить
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- EDIT MODAL FINISH -->
+    <!-- DETAIL MODAL START -->
+    <div
+      class="modal fade"
+      id="detailModal"
+      tabindex="-1"
+      aria-labelledby="detailModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="detailModalLabel">Детальный обзор</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <img id="detailImg" class="img-fluid" src="" alt="Phone Image" />
+            <h5 id="detailName"></h5>
+            <p id="detailPrice"></p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- DETAIL MODAL FINISH -->
+
+    <!--! PAGINATION START -->
+    <div aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item">
+          <a id="prevBtn" class="page-link" href="#">Previous</a>
+        </li>
+        <li class="page-item">
+          <a id="nextBtn" class="page-link" href="#">Next</a>
+        </li>
+      </ul>
+    </div>
+
+    <!--! PAGINATION FINISH -->
 
     <!-- !FOOTER START -->
     <footer class="bg-dark text-white text-center text-lg-start">

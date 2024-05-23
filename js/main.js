@@ -10,7 +10,8 @@ let searchValue = "";
 let countPage = 1;
 let currentPage = 1;
 
-btnAdd.addEventListener("click", () => {
+// ! -------------------------CREATE------------------------------
+btnAdd.addEventListener("click", async () => {
   if (!inpImg.value.trim() || !inpName.value.trim() || !inpPrice.value.trim()) {
     alert("Введите данные!");
     return;
@@ -20,23 +21,25 @@ btnAdd.addEventListener("click", () => {
     phoneName: inpName.value,
     phonePrice: inpPrice.value,
   };
-  createPhone(newPhone);
+  await createPhone(newPhone);
   inpImg.value = "";
   inpName.value = "";
   inpPrice.value = "";
   collapseThree.classList.toggle("show");
+  await readPhones(); // Обновление данных после создания телефона
 });
 
-function createPhone(phone) {
-  fetch(API, {
+async function createPhone(phone) {
+  await fetch(API, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
     },
     body: JSON.stringify(phone),
-  }).then(() => readPhones());
+  });
 }
 
+// !------------------------READ--------------------------
 async function readPhones() {
   const res = await fetch(
     `${API}?q=${searchValue}&_page=${currentPage}&_limit=4`
@@ -51,57 +54,50 @@ async function readPhones() {
           <h5 class="card-title">${elem.phoneName}</h5>
           <span>${elem.phonePrice}</span>
           <button type="button" class="btn btn-danger btnDelete" id="${elem.id}">Удалить</button>
-          <button data-bs-toggle="modal" data-bs-target="#editModal" id="${elem.id}" type="button" class="btn btn-info btnEdit">Редактировать</button>
-          <button data-bs-toggle="modal" data-bs-target="#detailModal" id="${elem.id}" type="button" class="btn btn-warning btnDetail">Детальный обзор</button>
+          <button data-bs-toggle="modal" data-bs-target="#exampleModal" id="${elem.id}" type="button" class="btn btn-info btnEdit">Редактировать</button>
+          <button type="button" class="btn btn-warning" id="${elem.id}" onclick="showDetail('${elem.phoneImg}', '${elem.phoneName}', '${elem.phonePrice}')">Детальный обзор</button>
         </div>
       </div>
     `;
   });
-  pageFunc();
+  await pageFunc();
 }
 
-document.addEventListener("click", (e) => {
+// !-----------------------------------DELETE----------------------------------
+document.addEventListener("click", async (e) => {
   const del_class = [...e.target.classList];
   let id = e.target.id;
   if (del_class.includes("btnDelete")) {
-    fetch(`${API}/${id}`, {
+    await fetch(`${API}/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
       },
-    }).then(() => readPhones());
+    });
+    await readPhones();
   }
 });
 
+// !------------------------EDIT----------------------------
 const inpEditImg = document.querySelector("#inpEditImg");
 const inpEditName = document.querySelector("#inpEditName");
 const inpEditPrice = document.querySelector("#inpEditPrice");
 const btnEditSave = document.querySelector("#btnEditSave");
 
-document.addEventListener("click", (e) => {
+document.addEventListener("click", async (e) => {
   let edit_class = [...e.target.classList];
   let id = e.target.id;
   if (edit_class.includes("btnEdit")) {
-    fetch(`${API}/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        inpEditImg.value = data.phoneImg;
-        inpEditName.value = data.phoneName;
-        inpEditPrice.value = data.phonePrice;
-        btnEditSave.setAttribute("data-id", data.id);
-      });
-  } else if (edit_class.includes("btnDetail")) {
-    fetch(`${API}/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        document.querySelector("#detailImg").src = data.phoneImg;
-        document.querySelector("#detailName").textContent = data.phoneName;
-        document.querySelector("#detailPrice").textContent = data.phonePrice;
-      });
+    const res = await fetch(`${API}/${id}`);
+    const data = await res.json();
+    inpEditImg.value = data.phoneImg;
+    inpEditName.value = data.phoneName;
+    inpEditPrice.value = data.phonePrice;
+    btnEditSave.setAttribute("data-id", data.id); // Use data-id instead of id to avoid conflicts
   }
 });
 
-btnEditSave.addEventListener("click", () => {
+btnEditSave.addEventListener("click", async () => {
   if (
     !inpEditImg.value.trim() ||
     !inpEditName.value.trim() ||
@@ -115,40 +111,60 @@ btnEditSave.addEventListener("click", () => {
     phoneName: inpEditName.value,
     phonePrice: inpEditPrice.value,
   };
-  editPhone(editedPhone, btnEditSave.getAttribute("data-id"));
+  const id = btnEditSave.getAttribute("data-id"); // Get the id from data-id
+  await editPhone(editedPhone, id);
+  await readPhones(); // Обновление данных после редактирования телефона
 });
 
-function editPhone(phone, id) {
-  fetch(`${API}/${id}`, {
+async function editPhone(phone, id) {
+  await fetch(`${API}/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
     },
     body: JSON.stringify(phone),
-  }).then(() => readPhones());
+  });
 }
 
-inpSearch.addEventListener("input", (e) => {
+// ! ---------------------------------SEARCH----------------------------------------
+inpSearch.addEventListener("input", async (e) => {
   searchValue = e.target.value;
-  readPhones();
+  await readPhones();
 });
 
+// ! -------------------------------PAGINATION--------------------------------------
 async function pageFunc() {
   const res = await fetch(API);
   const data = await res.json();
   countPage = Math.ceil(data.length / 4); // Предполагаем, что 4 элемента на странице
+  updatePaginationButtons();
 }
 
-document.querySelector("#prevBtn").addEventListener("click", () => {
+function updatePaginationButtons() {
+  document
+    .querySelector("#prevBtn")
+    .classList.toggle("disabled", currentPage <= 1);
+  document
+    .querySelector("#nextBtn")
+    .classList.toggle("disabled", currentPage >= countPage);
+}
+
+document.querySelector("#prevBtn").addEventListener("click", async () => {
   if (currentPage <= 1) return;
   currentPage--;
-  readPhones();
+  await readPhones();
 });
 
-document.querySelector("#nextBtn").addEventListener("click", () => {
+document.querySelector("#nextBtn").addEventListener("click", async () => {
   if (currentPage >= countPage) return;
   currentPage++;
-  readPhones();
+  await readPhones();
 });
 
-readPhones(); // Инициализация чтения телефонов при загрузке страницы
+function showDetail(img, name, price) {
+  document.querySelector("#detailImg").src = img;
+  document.querySelector("#detailName").innerText = name;
+  document.querySelector("#detailPrice").innerText = price;
+}
+
+document.addEventListener("DOMContentLoaded", readPhones); // Инициализация чтения телефонов при загрузке страницы

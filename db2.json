@@ -1,12 +1,6 @@
 {
   "phones": [
     {
-      "phoneImg": "https://samsungstore.kg/files/media/13/13666.jpg",
-      "phoneName": "Galaxy Z Fold 5 5G",
-      "phonePrice": "125 990с",
-      "id": 1
-    },
-    {
       "phoneImg": "https://samsungstore.kg/files/media/14/14442.png",
       "phoneName": "Galaxy S24 Ultra",
       "phonePrice": "109 990с",
@@ -47,18 +41,6 @@
       "phoneName": "Galaxy S23FE",
       "phonePrice": "44 990c",
       "id": 8
-    },
-    {
-      "phoneImg": "https://samsungstore.kg/files/media/10/10946.png",
-      "phoneName": "Galaxy S22+",
-      "phonePrice": "64 390c",
-      "id": 9
-    },
-    {
-      "phoneImg": "https://samsungstore.kg/files/media/14/14295.png",
-      "phoneName": "Galaxy S24 128GB",
-      "phonePrice": "64 490c",
-      "id": 10
     },
     {
       "phoneImg": "https://samsungstore.kg/files/media/13/13321.jpg",

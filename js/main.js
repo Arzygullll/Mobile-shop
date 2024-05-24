@@ -207,7 +207,6 @@ function showDetail(img, name, price) {
 
 // !-------SECTION3-----------------
 // !-----------------------------------SECTION-3 START-----------------------------------
-// !-----------------------------------SECTION-3 START-----------------------------------
 const section3 = document.querySelector(".section3");
 let currentPageSamsung = 1;
 let searchValueSamsung = ""; // Добавьте это, если есть возможность поиска
@@ -357,11 +356,35 @@ btnEditSave2.addEventListener("click", async () => {
   await displaySamsungPhones();
 });
 
-// Функция для отображения детальной информации о телефоне Samsung
+// ! INFO
+// First section
 function showDetail(img, name, price) {
+  document.querySelector("#detailImg").src = img;
+  document.querySelector("#detailName").innerText = name;
+  document.querySelector("#detailPrice").innerText = price;
+
+  const detailModal = new bootstrap.Modal(
+    document.getElementById("detailModal"),
+    {
+      keyboard: false,
+    }
+  );
+  detailModal.show();
+}
+
+// Third section
+function showSamsungDetail(img, name, price) {
   document.querySelector("#detailImg2").src = img;
   document.querySelector("#detailName2").innerText = name;
   document.querySelector("#detailPrice2").innerText = price;
+
+  const detailModal = new bootstrap.Modal(
+    document.getElementById("detailModal2"),
+    {
+      keyboard: false,
+    }
+  );
+  detailModal.show();
 }
 
 // PAGINATION - Пагинация

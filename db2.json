@@ -1,0 +1,52 @@
+{
+  "phones": [
+    {
+      "phoneImg": "https://samsungstore.kg/files/media/14/14442.png",
+      "phoneName": "Galaxy S24 Ultra",
+      "phonePrice": "109 990с",
+      "id": 2
+    },
+    {
+      "phoneImg": "https://samsungstore.kg/files/media/14/14422.png",
+      "phoneName": "Galaxy S24 Ultra 256GB",
+      "phonePrice": "98 990c",
+      "id": 3
+    },
+    {
+      "phoneImg": "https://samsungstore.kg/files/media/12/12323.png",
+      "phoneName": "Galaxy S22 Ultra",
+      "phonePrice": "92 990c",
+      "id": 4
+    },
+    {
+      "phoneImg": "https://samsungstore.kg/files/media/14/14392.png",
+      "phoneName": "Galaxy S24",
+      "phonePrice": "88 990c",
+      "id": 5
+    },
+    {
+      "phoneImg": "https://samsungstore.kg/files/media/10/10885.jpg",
+      "phoneName": "Galaxy S22 Ultra",
+      "phonePrice": "80 990c",
+      "id": 6
+    },
+    {
+      "phoneImg": "https://samsungstore.kg/files/media/12/12444.jpg",
+      "phoneName": "Galaxy S23",
+      "phonePrice": "61 390c",
+      "id": 7
+    },
+    {
+      "phoneImg": "https://samsungstore.kg/files/media/14/14068.jpg",
+      "phoneName": "Galaxy S23FE",
+      "phonePrice": "44 990c",
+      "id": 8
+    },
+    {
+      "phoneImg": "https://samsungstore.kg/files/media/13/13321.jpg",
+      "phoneName": "Galaxy A34",
+      "phonePrice": "32 600c",
+      "id": 11
+    }
+  ]
+}
